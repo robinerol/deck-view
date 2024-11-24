@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { buildGradient, renderDeck } from '../utils/render';
 import { type Deck } from '../types';
-import { defineProps, onMounted, ref } from 'vue';
+import { defineProps, onMounted, reactive, ref } from 'vue';
 import DeckDetailsComponent from './DeckDetailsComponent.vue';
 import { takeScreenshotAndDownload } from '../utils/screenshot.ts';
 
@@ -13,6 +13,7 @@ const props = defineProps<{
   pilot: String;
   deck: Deck;
 }>();
+const screenshotStatus = reactive({ loading: false });
 
 onMounted(() => {
   if (container.value && divider.value && deck.value) {
@@ -31,10 +32,12 @@ onMounted(() => {
 
 const exportView = async () => {
   if (container.value) {
+    screenshotStatus.loading = true;
     await takeScreenshotAndDownload(
       container.value,
       `${props.pilot.replace(/ +/g, '-')}_${props.title.replace(/ +/g, '_')}.png`
     );
+    screenshotStatus.loading = false;
   }
 };
 
@@ -48,6 +51,11 @@ const restart = () => {
     <div class="actions">
       <button @click="restart">Restart</button>
       <button @click="exportView">Export</button>
+    </div>
+    <div v-if="screenshotStatus.loading" class="spinner-container">
+      <div class="spinner"></div>
+      <span>Generating...</span>
+      <span>This may take a few seconds.</span>
     </div>
     <div ref="container" id="container">
       <div ref="deck" id="deck">
@@ -141,5 +149,29 @@ button {
 
 button:hover {
   border: 2px solid var(--accent);
+}
+
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.spinner {
+  border: 4px solid var(--secondary);
+  border-left-color: var(--primary);
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  animation: spin-7d6c7f68 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
