@@ -92,6 +92,23 @@ class Dequeue<T> {
     return removedValue;
   }
 
+  removeFromBack(): T | null {
+    if (!this.tail) {
+      return null;
+    }
+
+    const removedValue = this.tail.value;
+    if (this.head === this.tail) {
+      this.tail = this.tail = null;
+    } else {
+      this.tail = this.tail.prev;
+      this.tail!.next = null;
+    }
+
+    this.length--;
+    return removedValue;
+  }
+
   peekFront(): T | null {
     return this.head ? this.head.value : null;
   }
