@@ -19,19 +19,19 @@ body {
 
 @media (prefers-color-scheme: light) {
   :root {
-    --text: #100f09;
-    --background: #faf9f6;
-    --primary: #a69865;
-    --secondary: #abcfbb;
-    --accent: #88bab7;
+    --text: #4c4f69;
+    --background: #eff1f5;
+    --primary: #9ca0b0;
+    --secondary: #7287fd;
+    --accent: #8839ef;
   }
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #f6f5ef;
-    --background: #0a0905;
-    --primary: #9b8d59;
-    --secondary: #305441;
-    --accent: #5e9791;
+    --text: #cad3f5;
+    --background: #24273a;
+    --primary: #6e738d;
+    --secondary: #b7bdf8;
+    --accent: #c6a0f6;
   }
 }
