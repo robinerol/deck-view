@@ -40,10 +40,12 @@ function createBlocksOf(blockSize: number, subDeck: SubDeck): string[][] {
     subDeck.enchantments,
     subDeck.others
   );
-  sortIntoBlocksOf(blockSize, blocks, unsorted, subDeck.others, subDeck.lands);
-  sortIntoBlocksOf(blockSize, blocks, unsorted, subDeck.lands);
+  sortIntoBlocksOf(blockSize, blocks, unsorted, subDeck.others);
 
-  sortRestIntoBlocksOf(blockSize, blocks, unsorted);
+  while (subDeck.lands.hasElements()) {
+    unsorted.push(subDeck.lands.removeFromBack()!);
+  }
+  sortRestIntoBlocksOf(blockSize, blocks, unsorted.reverse());
 
   return blocks;
 }
