@@ -42,7 +42,7 @@ const exportView = async () => {
 };
 
 const restart = () => {
-  window.location.href = '/deck-view';
+  window.location.href = '/deck-view/';
 };
 </script>
 
