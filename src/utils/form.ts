@@ -29,10 +29,11 @@ function parseDeckList(deckList: string[], deck: DeckType): PlaySet[] {
 }
 
 function validateAndSplit(input: string): RegExpMatchArray {
-  const match: RegExpMatchArray | null = input.match(/^(\d+)\s+(.+)$/);
+  const regex = /^(\d+)[xX]?\s+([^\n//]+)/;
+  const match: RegExpMatchArray | null = input.match(regex);
   if (!match) {
     throw new Error(
-      `Invalid entry format: "${input}". Expected format is "Quantity Card-Name e.g. 4 Forest".`
+      `Invalid entry format: "${input}". Expected format is "Quantity (xX) Card-Name e.g. 4 Forest, 5x Island, 3 X Plains, 4X Swamp".`
     );
   }
   return match;
