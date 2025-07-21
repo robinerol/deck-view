@@ -29,7 +29,7 @@ function populateAndSort(
 
     playSet.metaData = {
       name: playSet.name,
-      img_uri: card.card_faces
+      img_uri: card.card_faces && card.card_faces.image_uris
         ? card.card_faces[0].image_uris.small
         : card.image_uris.small,
       cmc: card.cmc,
