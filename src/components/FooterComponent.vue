@@ -5,8 +5,17 @@
     <span>
       MTG Deck View is unofficial Fan Content permitted under the Fan Content
       Policy. Not approved/endorsed by Wizards. Portions of the materials used
-      are property of Wizards of the Coast. ©Wizards of the Coast LLC.
-      Card data and images are fetched from scryfall.com.
+      are property of Wizards of the Coast. ©Wizards of the Coast LLC. Card
+      data and images are fetched from
+      <a href="https://scryfall.com" target="_blank" rel="noopener noreferrer"
+        >Scryfall</a
+      >. Source code available on
+      <a
+        href="https://github.com/robinerol/deck-view"
+        target="_blank"
+        rel="noopener noreferrer"
+        >GitHub</a
+      >.
     </span>
   </footer>
 </template>
