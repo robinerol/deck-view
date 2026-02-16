@@ -11,27 +11,25 @@ import {
 } from '../types.ts';
 import { removeAccents } from './form.ts';
 
-function populateAndSort(
+async function populateAndSort(
   cardData: Card[],
   playSets: PlaySet[],
   mainBlockSize: number,
   sideBlockSize: number
-): Deck {
+): Promise<Deck> {
   const populatedDeck: Deck = initializeDeck();
 
-  playSets.forEach((playSet: PlaySet) => {
+  for (const playSet of playSets) {
     const card: Card | undefined = cardData.find((entry) =>
       removeAccents(entry.name).startsWith(playSet.name)
     );
     if (!card) {
-      return;
+      continue;
     }
 
     playSet.metaData = {
       name: playSet.name,
-      img_uri: card.card_faces && card.card_faces.image_uris
-        ? card.card_faces[0].image_uris.small
-        : card.image_uris.small,
+      img_uri: await imageUrlToBase64(getSmallImageUrl(card)),
       cmc: card.cmc,
       colors: card.colors ?? [],
       type_line: card.card_faces
@@ -51,9 +49,34 @@ function populateAndSort(
     } else {
       sortIntoDeck(playSet, populatedDeck.side, sideBlockSize);
     }
-  });
+  }
 
   return populatedDeck;
+}
+
+function getSmallImageUrl(card: Card): string {
+  return card.card_faces?.[0]?.image_uris?.small ?? card.image_uris.small;
+}
+
+async function imageUrlToBase64(imageUrl: string): Promise<string> {
+  try {
+    const response = await fetch(imageUrl, {
+      method: 'GET',
+      headers: {
+        'X-Force-CORS': 'true',
+      },
+      mode: 'cors',
+    });
+    const blob = await response.blob();
+
+    const reader = new FileReader();
+    return new Promise((resolve) => {
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.readAsDataURL(blob);
+    });
+  } catch (error) {
+    return imageUrl;
+  }
 }
 
 function initializeDeck(): Deck {

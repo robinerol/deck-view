@@ -61,7 +61,7 @@ const handleSubmit = () => {
           <textarea
             rows="25"
             v-model="formData.main"
-            placeholder="4 Plains&#10;4 Island&#10;4 Swamp&#10;4 Mountain&#10;4 Forest&#10;..."
+            placeholder="4 Plains&#10;4 Island&#10;4 Swamp&#10;4 Mountain&#10;4 Forest&#10;...&#10;&#10;&#10;Paper Card Names Only"
             required
           ></textarea>
         </div>
@@ -70,7 +70,7 @@ const handleSubmit = () => {
           <textarea
             rows="25"
             v-model="formData.side"
-            placeholder="4 Plains&#10;4 Island&#10;..."
+            placeholder="4 Plains&#10;4 Island&#10;...&#10;&#10;&#10;Paper Card Names Only"
             required
           ></textarea>
         </div>

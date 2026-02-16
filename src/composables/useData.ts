@@ -19,7 +19,7 @@ function useData() {
       const result = await cardApi.fetchPlaySetData(
         new Set(playSets.map((entry) => entry.name))
       );
-      data.value = populateAndSort(
+      data.value = await populateAndSort(
         result.data as Card[],
         playSets,
         mainBlockSize,
